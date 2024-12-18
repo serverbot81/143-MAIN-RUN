@@ -1,0 +1,22 @@
+{
+  "author": "ryuko",
+  "developermode": false,
+  "language": "en",
+  "approval": false,
+  "premium": false,
+  "BOTNAME": "TANVIR JANU 💙🪶",
+  "PREFIX": ".",
+  "OPERATOR": [
+    "100032407831557"
+  ],
+  "ADMINBOT": [
+    "100032407831557"
+  ],
+  "GROUPCHATID": [
+    "UND"
+  ],
+  "note": "groupchatid is required, how to use? first disable the approval and premium above, then create group chat and add your bot. chat the command 'gid' in your group chat to get your group chat id and paste it on groupchatid. this feature allowed you to monitor the logs of your bot",
+  "disabledcmds": [],
+  "disabledevents": [],
+  "note": "make sure that the bot name you entered is all lowercase"
+}
