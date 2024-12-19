@@ -4,14 +4,14 @@ module.exports = async ({ api, event }) => {
   const configCustom = {
     autosetbio: {
       status: false,
-      bio: `prefix : ${global.config.PREFIX}`,
+      bio: `prefix :  ${global.config.PREFIX}`,
       note: 'automatically change the bot bio.'
     },
     greetings: {
       status: true,
-      morning: `goodmorning everyone, have a nice day.`,
-      afternoon: `goodafternoon everyone, don't forget to eat your lunch.`,
-      evening: `goodevening everyone, don't forget to eat.`,
+      morning: `শুভ সকাল 🏜️🥀 \n\n✨__পাঁচ ওয়াক্ত সলাত \n আদায় করলে পঞ্চাশ ওয়াক্ত__✨ \n 🥀সলাতের সওয়াব পাওয়া যায় \n\n - (সহীহ বুখারী, মুসলিম ও তিরমিযীঃ ২১৩) `,
+      afternoon: ` 🥀___যে ব্যক্তি ফজর ও \n আসরের নামায আদায় করবে__✨\n সে জান্নাতে যাবে💙✨\n\n - (সহীহ বুখারীঃ ৫৪৬)* `,
+      evening: ` শুভ সন্ধ্যা 🌙🥀\n\n ✨রাসুল (সঃ) বলেন-\n সূরা ইখলাস তিনবার__💙🥀\n🤲🥀পাঠ করলে, এক খতমের সমান নেকীলাভ হয়\n\n- বুখারী,মুসলিম হা/৮১১ `,
       sleep: `goodnight everyone, time to sleep.`,
       note: 'greetings every morning, afternoon and evening. the timezone is located in Asia/Manila'
     },
@@ -21,7 +21,7 @@ module.exports = async ({ api, event }) => {
       note: 'auto delete caches, kindly set the status to true, if you dont want to delete caches, set the status to false.'
     },
     autoRestart: {
-      status: true,
+      status: false,
       time: 40, // 40 minutes
       note: 'to avoid problems, enable periodic bot restarts, set the status to false if you want to disable auto restart function.'
     },
@@ -29,7 +29,7 @@ module.exports = async ({ api, event }) => {
       status: false,
       time: 10, // 10 minutes
       note: 'approve waiting messages after a certain time, set the status to false if you want to disable auto accept message request.'
-    }
+    },
   }
 
   function autosetbio(config) {
