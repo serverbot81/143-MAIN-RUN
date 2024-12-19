@@ -41,22 +41,22 @@ module.exports.run = async function({ api, event, args }) {
   const threadName = threadInfo.threadName;
   const id = threadInfo.threadID;
   const sex = threadInfo.approvalMode;
-  const approvalStatus = sex ? '✅ Turned On' : '❌ Turned Off';
+  const approvalStatus = sex ? '✅ চালু' : '❌ বন্ধ';
   
   const callback = () => 
     api.sendMessage(
       {
-        body: `🎉 **Group Information** 🎉\n\n
-🔹 **Group Name:** ${threadName}\n
-🔹 **Group ID:** ${id}\n
-🔹 **Approval Mode:** ${approvalStatus}\n
-🔹 **Group Emoji:** ${icon}\n
-🔹 **Total Members:** ${memLength} members\n
-🔹 **Males:** ${nam} members 👨\n
-🔹 **Females:** ${nu} members 👩\n
-🔹 **Admins:** ${qtv} administrators 👑\n
-🔹 **Total Messages:** ${sl} messages 📚\n\n
-📅 **Updated by:** *Nazrul* 💻`,
+        body: `[💙] গ্রুপ বেসিক ইনফরমেশন \n
+[🤍] গ্রুপ নাম: ${threadName}
+[🤍] গ্রুপ-আইডি: ${id}
+[🤍] APV MODE: ${approvalStatus}
+[🤍] গ্রুপ ইমুজি: ${icon}
+[🤍] গ্রুপ সদস্য: ${memLength} জন
+[🤍] ছেলে: ${nam} জন 🙍‍♂️
+[🤍] মেয়ে: ${nu} জন 🙍‍♀️
+[🤍] এডমিন: ${qtv} জন 👑
+[🤍] মোট মেসেজ সংখ্যা: ${sl} টি 📝 \n
+[💙] 𝘚𝘵𝘢𝘺 𝘞𝘪𝘵𝘩 𝘛𝘢𝘯𝘷𝘪𝘳 𝘉𝘰𝘵 🥀`,
         attachment: fs.createReadStream(__dirname + '/cache/1.png')
       },
       event.threadID,
