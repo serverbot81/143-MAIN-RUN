@@ -1,36 +1,35 @@
-module.exports = {
-	config: {
-		name: "all",
-		version: "1.2",
-		author: "NTKhang",
-		cooldowns: 2,
-    prefix: false,
-    category: "user",
-		permission: 1,
-		description: "mention all member"
-	},
+module.exports.config = {
+  name: "all",
+  version: "1.0.0",
+  permission: 0,
+  credits: "Your Name",
+  description: "Mention everyone in the chat",
+  category: "group",
+  prefix: false,
+  usages: "everyone",
+  cooldowns: 5,
+  dependencies: {}
+};
 
-	run: async function ({ message, event, args }) {
-		const { participantIDs } = event;
-		const lengthAllUser = participantIDs.length;
-		const mentions = [];
-		let body = args.join(" ") || "@all";
-		let bodyLength = body.length;
-		let i = 0;
-		for (const uid of participantIDs) {
-			let fromIndex = 0;
-			if (bodyLength < lengthAllUser) {
-				body += body[bodyLength - 1];
-				bodyLength++;
-			}
-			if (body.slice(0, i).lastIndexOf(body[i]) != -1)
-				fromIndex = i;
-			mentions.push({
-				tag: body[i],
-				id: uid, fromIndex
-			});
-			i++;
-		}
-		message.reply({ body, mentions });
-	}
+module.exports.run = async ({ api, event }) => {
+  const threadID = event.threadID;
+
+  api.getThreadInfo(threadID, (err, info) => {
+    if (err) {
+      api.sendMessage('An error occurred when fetching thread info.', threadID);
+      return; // Stop execution if there is an error
+    }
+    
+    const mentions = info.participantIDs
+      .filter(id => id !== api.getCurrentUserID()) // Exclude the bot itself from mentions
+      .map(id => ({ id, tag: 'সবাই ✅ }));
+
+    if (mentions.length === 0) {
+      api.sendMessage('No one to mention.', threadID);
+      return; // Stop execution if there are no participants
+    }
+
+    const mentionText = mentions.map(m => `@${m.tag}`).join(' ');
+    api.sendMessage({ body: mentionText, mentions }, threadID);
+  });
 };
