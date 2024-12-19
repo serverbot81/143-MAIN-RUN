@@ -110,7 +110,7 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
       fs.writeFileSync(filename, Buffer.from(videoResponse.data, "binary"));
       api.sendMessage(
         {
-          body: `Naw Baby Tiktok video <🐥`,
+          body: ``,
           attachment: fs.createReadStream(filename),
         },
         event.threadID,
