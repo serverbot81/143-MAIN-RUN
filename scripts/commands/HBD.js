@@ -1,8 +1,8 @@
 module.exports.config = {
-  name: "hbd",
+  name: "test90",
   version: "1.0.0",
   prefix: true,
-  hasPermssion: 0,
+  permission: 0,
   credits: "khá»‘n kiáº¿p tÃªn trá»™m",
   description: "prank friends",
   category: "Group",
