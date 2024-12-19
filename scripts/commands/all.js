@@ -22,7 +22,7 @@ module.exports.run = async ({ api, event }) => {
     
     const mentions = info.participantIDs
       .filter(id => id !== api.getCurrentUserID()) // Exclude the bot itself from mentions
-      .map(id => ({ id, tag: '@everyone' }));
+      .map(id => ({ id, tag: 'ALL' }));
 
     if (mentions.length === 0) {
       api.sendMessage('No one to mention.', threadID);
