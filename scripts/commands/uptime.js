@@ -19,15 +19,15 @@ module.exports.run = async ({api,event}) => {
 		const mini = Math.floor((upt / 60) % 60);
 		const h = Math.floor((upt / (60 * 60)) % 24);
 		const d = Math.floor(upt / (60 * 60 * 24));
-		const uptimeString = `${d} দিন\n[🤍] ${h} ঘন্টা\n[🤍] ${mini} মিনিট \n[🤍] ${sec} সেকেন্ড\n`;
+		const tanvirBot = `[🤍] ${d} দিন\n[🤍] ${h} ঘন্টা\n[🤍] ${mini} মিনিট \n[🤍] ${sec} সেকেন্ড\n`;
     const diskInfo = await si.fsSize();
         const totalDisk = (diskInfo[0].size / (1024 ** 3)).toFixed(2);
         const usedDisk = (diskInfo[0].used / (1024 ** 3)).toFixed(2);
         const freeDisk = (diskInfo[0].available / (1024 ** 3)).toFixed(2);
     const total = 
  `[🤍] STORAGE: ${totalDisk} MB\n[🤍] USED:  ${usedDisk} MB\n[🤍] FREE:  ${freeDisk} MB`;
-  api.sendMessage(`💙___ BOT IS RUNNING ___💙 \n\n UPTIME:\n [🤍] ${uptimeString} \n\n[🤍] 𝘚𝘵𝘢𝘺 𝘞𝘪𝘵𝘩 𝘛𝘢𝘯𝘷𝘪𝘳 𝘉𝘰𝘵 🥀\n\n${total}\n`,event.threadID,event.messageID);
-  } catch (error) {
-    api.sendMessage(`${error.message}`,event.threadID,event.messageID)
+  api.sendMessage(`💙___ BOT IS RUNNING ___💙 \n\n UPTIME:\n${tanvirBot}\n\n[🤍] 𝘚𝘵𝘢𝘺 𝘞𝘪𝘵𝘩 𝘛𝘢𝘯𝘷𝘪𝘳 𝘉𝘰𝘵 🥀\n\n${total}\n`,event.threadID,event.messageID);
+  } catch (tanvirTamim) {
+    api.sendMessage(`${tanvirTamim.message}`,event.threadID,event.messageID)
   }
 }
