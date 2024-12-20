@@ -1,140 +1,35 @@
+*CMD install uptime.js const axios = require("axios")
+const si = require('systeminformation');
 module.exports.config = {
-	name: "up",
-	version: "0.0.2",
-	permission: 0,
+  name: "upt",
+  creadits: " Romim",
+  version: "2.0.0",
   prefix: true,
-	credits: "Nayan",
-	description: "uptime",
-	category: "admin",
-	usages: "",
-    cooldowns: 5,
-};
-function byte2mb(bytes) {
-	const units = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-	let l = 0, n = parseInt(bytes, 10) || 0;
-	while (n >= 1024 && ++l) n = n / 1024;
-	return `${n.toFixed(n < 10 && l > 0 ? 1 : 0)} ${units[l]}`;
+  category: "running time"
 }
-module.exports.run = async ({ api, event, args }) => {
-const time = process.uptime() ,
-		hours = Math.floor(time / (100 * 110)),
-		minutes = Math.floor((time % (100* 99)) / 88),
-		seconds = Math.floor(time % 110);
-  var z_1 = (hours < 10) ? '0' + hours : hours;
-    var x_1 = (minutes < 10) ? '0' + minutes : minutes;
-    var y_1 = (seconds < 10) ? '0' + seconds : seconds;
-  const { commands } = global.client;
-  const moment = require("moment-timezone");
-  const timeNow = moment.tz("Asia/Dhaka").format("DD/MM/YYYY || HH:mm:s");
-    const axios = require('axios')
-	const pidusage = await global.nodemodule["pidusage"](process.pid);
-	const timeStart = Date.now();
-  const fs = require('fs-extra');
-   if (!fs.existsSync(__dirname +
-        `/nayan/UTM-Avo.ttf`)) {
-        let getfont = (await axios.get(`https://github.com/hanakuUwU/font/raw/main/UTM%20Avo.ttf`, { responseType: "arraybuffer" })).data;
-        fs.writeFileSync(__dirname + `/nayan/UTM-Avo.ttf`, Buffer.from(getfont, "utf-8"));
-      }
-         if (!fs.existsSync(__dirname +
-      `/nayan/phenomicon.ttf`)) {
-      let getfont2 = (await axios.get(`https://github.com/hanakuUwU/font/raw/main/phenomicon.ttf`, { responseType: "arraybuffer" })).data;
-      fs.writeFileSync(__dirname + `/nayan/phenomicon.ttf`, Buffer.from(getfont2, "utf-8"));
-    };
-  if (!fs.existsSync(__dirname +
-      `/nayan/CaviarDreams.ttf`)) {
-      let getfont3 = (await axios.get(`https://github.com/hanakuUwU/font/raw/main/CaviarDreams.ttf`, { responseType: "arraybuffer" })).data;
-      fs.writeFileSync(__dirname + `/nayan/CaviarDreams.ttf`, Buffer.from(getfont3, "utf-8"));
-    };
-   const { loadImage, createCanvas, registerFont } = require("canvas");
-  
-  let k = args[0];
-   if(args[0] == "list"){
-    const alime = (await axios.get('https://raw.githubusercontent.com/mraikero-01/saikidesu_data/main/anilist2.json')).data
-    var count = alime.listAnime.length;
-      var data = alime.listAnime
-      var page = 1;
-      page = parseInt(args[1]) || 1;
-      page < -1 ? page = 1 : "";
-      var limit = 20;
-      var numPage = Math.ceil(count/limit);
-      var msg = ``;
-      for(var i = limit*(page - 1); i < limit*(page-1) + limit; i++){
-         if(i >= count) break;
-        msg += `[ ${i+1} ] - ${data[i].ID} | ${data[i].name}\n`;
-      }
-      msg += `Trang ( ${page}/${numPage} )\nDùng ${global.config.PREFIX}${this.config.name} list < số trang >`;
-      return api.sendMessage(msg, event.threadID,event.messageID);
-   }
-  if(!k){
-  var id = Math.floor(Math.random() * 883) +1
-  } else {
-    var id = k
-  }
-  const loz = ["https://i.imgur.com/9jbBPIM.jpg","https://i.imgur.com/cPvDTd9.jpg","https://i.imgur.com/ZT8CgR1.jpg","https://i.imgur.com/WhOaTx7.jpg","https://i.imgur.com/BIcgJOA.jpg","https://i.imgur.com/EcJt1yq.jpg","https://i.imgur.com/0dtnQ2m.jpg"]
-    const lengthchar = (await axios.get('https://raw.githubusercontent.com/mraikero-01/saikidesu_data/main/imgs_data2.json')).data
-    console.log(lengthchar.length)
-  const Canvas = require('canvas');
-    let pathImg = __dirname + `/nayan/avatar_1111231.png`;
-    let pathAva = __dirname + `/nayan/avatar_3dsc11.png`;
-    let background = (await axios.get(encodeURI((loz[Math.floor(Math.random() * loz.length)])), { responseType: "arraybuffer" })).data;
-    fs.writeFileSync(pathImg, Buffer.from(background, "utf-8"));
-    let ava = (await axios.get(encodeURI(`${lengthchar[id - 1].imgAnime}`), { responseType: "arraybuffer" })).data;
-    fs.writeFileSync(pathAva, Buffer.from(ava, "utf-8"));
-    const request = require('request');
-    const path = require('path');
-
-  //const a = Math.floor(Math.random() * 820) + 1
-  
-  
-let l1 = await loadImage(pathAva);
-    let a = await loadImage(pathImg);
-    let canvas = createCanvas(a.width, a.height);
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = lengthchar[id - 1].colorBg;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+module.exports.run = async ({api,event}) => {
+  try {
     
-    ctx.drawImage(a, 0, 0, canvas.width, canvas.height);
-  ctx.drawImage(l1, 800, -160, 1100, 1100);
-     registerFont(__dirname + `/nayan/phenomicon.ttf`, {
-      family: "phenomicon"
-    });
-    ctx.textAlign = "start";
-    ctx.strokeStyle = lengthchar[id - 1].colorBg;
-    ctx.filter = "brightness(90%) contrast(110%)";
-    ctx.font = "130px phenomicon";
-    ctx.fillStyle = lengthchar[id].colorBg;
-    ctx.fillText("UPTIME ROBOT", 95, 340);
-    ctx.beginPath();
-  ////////////////////////////////////////
-   registerFont(__dirname + `/nayan/UTM-Avo.ttf`, {
-      family: "UTM"
-    });
-    ctx.textAlign = "start";
-    ctx.font = "70px UTM";
-    ctx.fillStyle = "#fdfdfd";
-    ctx.fillText(`${z_1} : ${x_1} : ${y_1} `, 180, 440);
-    ctx.restore();
-    ctx.save();
-registerFont(__dirname + `/nayan/CaviarDreams.ttf`, {
-      family: "time"
-    });
-    ctx.textAlign = "start";
-    ctx.font = "45px time";
-    ctx.fillText("@" + "alabiooBaby", 250, 515)
-    ctx.fillText("@" + "TANVIR AHMED", 250, 575)
-   //ctx.fillText("@" + "DVFB.VietLe.pro", 405, 750)
-    ctx.restore();
-    ctx.save();
-    ctx.beginPath();
-    const imageBuffer = canvas.toBuffer();
-   fs.writeFileSync(pathImg, imageBuffer);
-  return api.sendMessage({
-    body: `💙_TANVIR ROBOT UPTIME_💙\n\n [🤍] ${hours}h ${minutes}m ${seconds}s \n💙___TANVIR ROBOT INFO___💙\n[🤍] OWNER: TANVIR AHMED\n[🤍] BOT NAME: ${global.config.BOTNAME}\n[🤍] BOT PREFIX: [ ${global.config.PREFIX} ]\n[🤍] CMD COUNT: ${commands.size}\n[🤍] USER COUNT: ${global.data.allUserID.length}\n[🤍] GROUP COUNT: ${global.data.allThreadID.length}\n➠ CPU USES: ${pidusage.cpu.toFixed(1)}%\n[🤍] RAM: ${byte2mb(pidusage.memory)}\n[🤍] PING: ${Date.now() - timeStart}ms\n[🤍] CHARACTER ID: ${id}\n \n [🤖] 𝘚𝘵𝘢𝘺 𝘞𝘪𝘵𝘩 𝘛𝘢𝘯𝘷𝘪𝘳 𝘉𝘰𝘵 🥀`,
-    attachment: fs.createReadStream(pathImg)
-  },
-    event.threadID,
-    () => fs.unlinkSync(pathImg),
-    fs.unlinkSync(pathAva),
-    event.messageID
-);
+/*  const response = await axios.get(`https://a6-video-api.onrender.com/video/sigma`)
+  const uri = response.data.data
+  const a6 = await axios.get(uri,{responseType: 'stream'});
+  let a6y = a6.data*/
+		const upt = process.uptime();
+		const sec = Math.floor(upt % 60);
+		const mini = Math.floor((upt / 60) % 60);
+		const h = Math.floor((upt / (60 * 60)) % 24);
+		const d = Math.floor(upt / (60 * 60 * 24));
+		const uptimeString = `${d} 𝙳𝙰𝚈𝚂\n ${h} 𝙷𝙾𝚄𝚁𝚂\n ${mini} 𝙼𝙸𝙽𝚄𝚃𝙴𝚂 \n${sec} 𝚂𝙴𝙲𝙾𝙽𝙳𝚂\n`;
+    const diskInfo = await si.fsSize();
+        const totalDisk = (diskInfo[0].size / (1024 ** 3)).toFixed(2);
+        const usedDisk = (diskInfo[0].used / (1024 ** 3)).toFixed(2);
+        const freeDisk = (diskInfo[0].available / (1024 ** 3)).toFixed(2);
+    const total = 
+ `𝚃𝙾𝚃𝙰𝙻 𝙳𝙸𝚂𝙺 » ${totalDisk} 
+𝚄𝚂𝙴𝙳 𝙳𝙸𝚂𝙺 »  ${usedDisk}
+  𝙵𝚁𝙴𝙴 𝙳𝙸𝚂𝙺 »  ${freeDisk} `;
+  api.sendMessage(`𝙷𝙴𝚈 𝙼𝙰𝚂𝚃𝙴𝚁 𝚄𝙿𝚃𝙸𝙼𝙴${uptimeString}\n𝙰-6𝚈 𝙲𝚁𝙴𝙰𝚃𝙾𝚁 : 𝚁𝙾𝙼𝙸𝙼 𝙰𝙷𝙼𝙴𝙳 \n𝚃𝙾𝚃𝙰𝙻 𝙳𝙸𝚂𝙺\n\n${total}\n`,event.threadID,event.messageID);
+  } catch (error) {
+    api.sendMessage(`${error.message}`,event.threadID,event.messageID)
+  }
 }
