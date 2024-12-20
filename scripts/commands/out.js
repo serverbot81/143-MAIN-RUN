@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "out",
   version: "1.0.0",
-  hasPermssion: 2,
+  permission: 2,
   credits: "Kanichi",
   description: "Leave the group",
   prefix: true,
