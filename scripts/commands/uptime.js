@@ -25,9 +25,7 @@ module.exports.run = async ({api,event}) => {
         const usedDisk = (diskInfo[0].used / (1024 ** 3)).toFixed(2);
         const freeDisk = (diskInfo[0].available / (1024 ** 3)).toFixed(2);
     const total = 
- `[🤍] STORAGE:  ${totalDisk} MB
- [🤍] USED:  ${usedDisk} MB
-  [🤍] FREE:  ${freeDisk} MB`;
+ `[🤍] STORAGE: ${totalDisk} MB\n[🤍] USED:  ${usedDisk} MB\n[🤍] FREE:  ${freeDisk} MB`;
   api.sendMessage(`💙___ BOT IS RUNNING ___💙 \n\n UPTIME:\n [🤍] ${uptimeString} \n\n[🤍] 𝘚𝘵𝘢𝘺 𝘞𝘪𝘵𝘩 𝘛𝘢𝘯𝘷𝘪𝘳 𝘉𝘰𝘵 🥀\n\n${total}\n`,event.threadID,event.messageID);
   } catch (error) {
     api.sendMessage(`${error.message}`,event.threadID,event.messageID)
