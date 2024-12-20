@@ -37,6 +37,7 @@
         "gradient-string": "^2.0.2",
         "https-proxy-agent": "latest",
         "jimp": "^0.22.12",
+        "systeminformation": "^5.23.14",
         "lyrics-finder": "^21.7.0",
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.41",
