@@ -1,4 +1,4 @@
-*CMD install uptime.js const axios = require("axios")
+const axios = require("axios")
 const si = require('systeminformation');
 module.exports.config = {
   name: "upt",
