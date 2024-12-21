@@ -83,7 +83,7 @@ module.exports.run = async function ({ api, args, event }) {
     }
     if (dipto) {
       /* const response = await axios.get(`${await baseApiUrl()}/baby?text=${dipto}&language=${lang}`);*/
-      const response = await axios.get(`https://ccprojectapis.ddns.net/api/gptconvo?ask=${dipto}&id=${tanvirBot}`);
+      const response = await axios.get(`https://ccprojectapis.ddns.net/api/gptconvo?ask=${dipto}&id=${tanvir143}`);
       const mg = response.data.reply;
       await api.sendMessage(
         { body: mg },
