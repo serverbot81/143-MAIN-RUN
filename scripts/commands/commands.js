@@ -1,5 +1,5 @@
 module.exports.config = {
-    name: "command",
+    name: "cmd",
     version: "1.0.0",
     permission: 2,
     credits: "ryuko",
