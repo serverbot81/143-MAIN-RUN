@@ -30,14 +30,14 @@ const shortLang = "en";
 const lang = languagesMap[shortLang];
 
 module.exports.config = {
-  name: "gpt",
+  name: "bot",
   version: "1.0.0",
   permission: 0,
   credits: "ryuko",
   prefix: false,
   description: "create a new post in acc bot",
   category: "operator",
-  cooldowns: 5
+  cooldowns: 2
 };
 
 module.exports.handleReply = async function ({ api, event, handleReply }) {
@@ -46,11 +46,9 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
     if (isNaN(reply)) {
    /* const response = await axios.get(
         `${await baseApiUrl()}/baby?text=${encodeURIComponent(reply)}&language=${lang}`,
-      );*/ 
-      var tanvirBot = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-      var tanvir143 = Math.floor(Math.random() * tanvirBot.length);
+      );*/
       const response = await axios.get(
-        `https://ccprojectapis.ddns.net/api/gptconvo?ask=${encodeURIComponent(reply)}&id=${tanvir143}`,
+        `${await baseApiUrl()}/baby?text=${encodeURIComponent(reply)}`,
       );
       const ok = response.data.reply;
       await api.sendMessage(
@@ -75,7 +73,7 @@ module.exports.run = async function ({ api, args, event }) {
     const dipto = args.join(" ").toLowerCase();
     if (!args[0]) {
       api.sendMessage(
-        "হুম সোনা বলো গো🥵🙈🤐",
+        "হুম সোনা বলো গো🥵🙈🤐", "আমি বট, তুমি হট🍋", "আয় 1vs1, দেখি কে বট কে প্রো😾", "তোমাকে আইলেবু🍋", "চল যাইগা পাট ক্ষেতে🙂", "সিল মাইরা দিমু😋", "তোমার পেন্টের চেইন খোলা🙂🫵",
         event.threadID,
         event.messageID,
       );
@@ -83,7 +81,7 @@ module.exports.run = async function ({ api, args, event }) {
     }
     if (dipto) {
       /* const response = await axios.get(`${await baseApiUrl()}/baby?text=${dipto}&language=${lang}`);*/
-      const response = await axios.get(`https://ccprojectapis.ddns.net/api/gptconvo?ask=${dipto}&id=${tanvir143}`);
+      const response = await axios.get(`${await baseApiUrl()}/baby?text=${dipto}`);
       const mg = response.data.reply;
       await api.sendMessage(
         { body: mg },
