@@ -1,14 +1,13 @@
 module.exports.config = {
   name: "Hi",
   version: "1.0.0",
-  hasPermission: 0,
+  permission: 0,
   credits: "Your Name",
   description: "Mention everyone in the chat",
   category: "group",
   prefix: true,
   usages: "everyone",
-  cooldowns: 5,
-  dependencies: {}
+  cooldowns: 5
 };
 
 module.exports.run = async ({ api, event }) => {
@@ -22,7 +21,7 @@ module.exports.run = async ({ api, event }) => {
 
     const mentions = info.participantIDs
       .filter(id => id !== api.getCurrentUserID()) // Exclude the bot itself from mentions
-      .map(id => ({ id, tag: 'everyone' }));
+      .map(id => ({ id, tag: '@everyone' }));
 
     if (mentions.length === 0) {
       api.sendMessage('No one to mention.', threadID);
