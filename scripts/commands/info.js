@@ -22,7 +22,6 @@ module.exports.run = async ({ api, event }) => {
       age: '18+',
       study: '𝘋𝘪𝘱𝘭𝘰𝘮𝘢 𝘪𝘯 𝘊𝘪𝘷𝘪𝘭 𝘛𝘦𝘤𝘩𝘯𝘰𝘭𝘰𝘨𝘺',
       height: '5\'7ft',
-      facebookLink: 'https://www.facebook.com/alabiooBaby',
       home: 'Chandpur, Bangladesh',
       status: 'single'
     };
@@ -44,12 +43,11 @@ module.exports.run = async ({ api, event }) => {
 𝘛𝘩𝘪𝘴 𝘉𝘰𝘵 𝘖𝘸𝘯𝘦𝘳 𝘐𝘯𝘧𝘰\n\n
 [🤍] 𝘕𝘢𝘮𝘦: ${ownerInfo.name}
 [🤍] 𝘏𝘰𝘮𝘦: ${ownerInfo.home}
-[🤍] 𝘚𝘵𝘶𝘥𝘺: ${ownerInfo.study}\n -𝘢𝘵 (𝘓𝘢𝘬𝘴𝘮𝘪𝘱𝘶𝘳 𝘗𝘰𝘭𝘺𝘵𝘦𝘤𝘩𝘯𝘪𝘤 𝘐𝘯𝘴𝘵𝘪𝘵𝘶𝘵𝘦)
+[🤍] 𝘚𝘵𝘶𝘥𝘺: \n${ownerInfo.study}\n(𝘓𝘢𝘬𝘴𝘮𝘪𝘱𝘶𝘳_𝘗𝘰𝘭𝘺𝘵𝘦𝘤𝘩𝘯𝘪𝘤_𝘐𝘯𝘴𝘵𝘪𝘵𝘶𝘵𝘦)
 [🤍] 𝘎𝘦𝘯𝘥𝘦𝘳 : ${ownerInfo.gender}
 [🤍] 𝘈𝘨𝘦: ${ownerInfo.age}
 [🤍] 𝘏𝘦𝘪𝘨𝘩𝘵: ${ownerInfo.height}
-[🤍] 𝘴𝘵𝘢𝘵𝘶𝘴: ${ownerInfo.status}
-[🤍] 𝘍𝘢𝘤𝘦𝘣𝘰𝘰𝘬: \n ${ownerInfo.facebookLink}\n\n𝘛𝘩𝘢𝘯𝘬𝘴 𝘧𝘰𝘳 𝘶𝘴𝘪𝘯𝘨 𝘛𝘢𝘯𝘷𝘪𝘳𝘉𝘰𝘵
+[🤍] 𝘴𝘵𝘢𝘵𝘶𝘴: ${ownerInfo.status} \n\n𝘛𝘩𝘢𝘯𝘬𝘴 𝘧𝘰𝘳 𝘶𝘴𝘪𝘯𝘨 𝘛𝘢𝘯𝘷𝘪𝘳𝘉𝘰𝘵
 `;
 
 
