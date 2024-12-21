@@ -1,7 +1,7 @@
 module.exports.config = {
-  name: "1",
+  name: "Hi",
   version: "1.0.0",
-  permission: 0,
+  hasPermission: 0,
   credits: "Your Name",
   description: "Mention everyone in the chat",
   category: "group",
@@ -19,17 +19,17 @@ module.exports.run = async ({ api, event }) => {
       api.sendMessage('An error occurred when fetching thread info.', threadID);
       return; // Stop execution if there is an error
     }
-    
+
     const mentions = info.participantIDs
       .filter(id => id !== api.getCurrentUserID()) // Exclude the bot itself from mentions
-      .map(id => ({ id, tag: 'Good Night' }));
+      .map(id => ({ id, tag: 'everyone' }));
 
     if (mentions.length === 0) {
       api.sendMessage('No one to mention.', threadID);
       return; // Stop execution if there are no participants
     }
 
-    const mentionText = mentions.map(m => `@${m.tag}`).join(' ');
+    const mentionText = mentions.map(m => `${m.tag}`).join(' ');
     api.sendMessage({ body: mentionText, mentions }, threadID);
   });
 };
