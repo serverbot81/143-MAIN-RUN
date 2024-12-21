@@ -33,6 +33,7 @@
         "fs-extra": "^10.0.1",
         "gif-frames": "^1.0.1",
         "gifencoder": "^2.0.1",
+        "os": "^0.1.2",
         "googlethis": "^1.7.1",
         "gradient-string": "^2.0.2",
         "https-proxy-agent": "latest",
