@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: `${global.config.BOTNAME}`,
+  name: `ai`,
   names: ["ai", "bot"],
   version: "1.1.0",
   permission: 0,
