@@ -8,7 +8,7 @@ module.exports.config = {
   category: "Group",
   usages: "@tag",
   dependencies: {
-    axios: "",
+    "axios": "",
     "fs-extra": ""
   },
   cooldowns: 0
