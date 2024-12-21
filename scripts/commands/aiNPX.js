@@ -48,8 +48,9 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
         `${await baseApiUrl()}/baby?text=${encodeURIComponent(reply)}&language=${lang}`,
       );*/ 
       var tanvirBot = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      var tanvir143 = Math.floor(Math.random() * tanvirBot.length);
       const response = await axios.get(
-        `https://ccprojectapis.ddns.net/api/gptconvo?ask=${encodeURIComponent(reply)}&id=${tanvirBot}`,
+        `https://ccprojectapis.ddns.net/api/gptconvo?ask=${encodeURIComponent(reply)}&id=${tanvir143}`,
       );
       const ok = response.data.reply;
       await api.sendMessage(
