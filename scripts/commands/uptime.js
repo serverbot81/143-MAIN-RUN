@@ -4,12 +4,12 @@ const si = require('systeminformation');
 module.exports.config = {
     name: "uptime",
     version: "1.0.0",
-    hasPermission: 0,
+    permission: 0,
     description: "Get detailed uptime and system information",
-    usePrefix: true,
+    prefix: true,
     credits: "Jonell Magallanes",
     cooldowns: 6,
-    commandCategory: "System",
+    category: "System",
 };
 
 module.exports.run = async function ({ api, event }) {
