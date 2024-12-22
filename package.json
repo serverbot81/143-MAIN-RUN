@@ -34,6 +34,7 @@
         "gif-frames": "^1.0.1",
         "gifencoder": "^2.0.1",
         "os": "^0.1.2",
+        "@saxx/no-noobs-apis@latest": "^1.0.3",
         "googlethis": "^1.7.1",
         "gradient-string": "^2.0.2",
         "https-proxy-agent": "latest",
