@@ -43,7 +43,7 @@
         "moment": "^2.29.1",
         "moment-timezone": "^0.5.41",
         "mqtt": "latest",
-        "nayan-media-downloader": "^0.0.1-security",
+        "@neoxr/ytdl-core": "^4.12.5",
         "nayan-videos-downloader": "^0.1.1",
         "node-cron": "^3.0.2",
         "node-fetch": "^3.3.1",
