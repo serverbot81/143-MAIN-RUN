@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const ytdl = require("@neoxr/ytdl-core");
+const ytdl = require("@distube/ytdl-core");
 const yts = require("yt-search");
 const axios = require('axios');
 const tinyurl = require('tinyurl');
