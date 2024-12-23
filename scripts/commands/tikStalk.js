@@ -45,8 +45,7 @@ module.exports = {
           `[🤍] 𝘛𝘰𝘵𝘢𝘭 𝘙𝘦𝘢𝘤𝘵: ${response.data.heartCount}\n` +
           `[🤍] 𝘛𝘰𝘵𝘢𝘭 𝘝𝘪𝘥𝘦𝘰𝘴: ${response.data.videoCount}\n` +
           `[🤍] 𝘜𝘐𝘋: ${response.data.secUid}\n` +
-          `[🤍] 𝘏𝘦𝘳𝘦 𝘪𝘴 𝘱𝘳𝘰𝘧𝘪𝘭𝘦 𝘱𝘪𝘤𝘵𝘶𝘳𝘦 👇:`,
-        attachment: await global.utils.getStreamFromURL(response.data.avatarLarger)
+          `\n[🤍] 𝘚𝘵𝘢𝘺 𝘞𝘪𝘵𝘩 𝘛𝘢𝘯𝘷𝘪𝘳 𝘉𝘰𝘵 🥀`,
       };
 
       return api.sendMessage(userInfoMessage, event.threadID);
