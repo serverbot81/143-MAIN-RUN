@@ -7,10 +7,10 @@ const baseApiUrl = async () => {
 
 module.exports.config = {
   name: "janu",
-  version: "6.9.0",
+  version: "6.9.9",
   credits: "dipto",
   cooldowns: 0,
-  hasPermssion: 0,
+  permission: 0,
   description: "better than all sim simi",
   commandCategory: "chat",
   category: "chat",
@@ -26,7 +26,7 @@ module.exports.run = async function ({ api, event, args, Users }) {
     const uid = event.senderID;
 
     if (!args[0]) {
-      const ran = ["bolen janu😫", "type: janu hi", "use: janu alabio", "try: janu kiss me"];
+      const ran = ["use: janu Hello", "তলে তলে টেম্পো চালাও, আর আমাকে এসে জানু বলো, বাহ", "তোমার অইখানে উমম্মাহ😘😷", "type janu Hi"];
       const r = ran[Math.floor(Math.random() * ran.length)];
       return api.sendMessage(r, event.threadID, event.messageID);
     }
@@ -152,13 +152,24 @@ try{
     return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
 }};
 
-
+   
 module.exports.handleEvent = async function ({ api, event }) {
 try{
-  if (event.type == "message_reply") {
     const body = event.body ? event.body.toLowerCase() : ""
     if(body.startsWith("baby") || body.startsWith("bby") || body.startsWith("janu")){
-    const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(body.replace(/^\S+\s*/, ""))}&senderID=${event.senderID}&font=1`)).data.reply;     
+        const arr = body.replace(/^\S+\s*/, "")
+      if(!arr) {
+                                     await api.sendMessage("Yes 😀, i am here ", event.threadID, (error, info) => {
+          global.client.handleReply.push({
+            name: this.config.name,
+            type: "reply",
+            messageID: info.messageID,
+            author: event.senderID
+          });
+        }, event.messageID,
+      )
+    }
+    const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(arr)}&senderID=${event.senderID}&font=1`)).data.reply;     
         await api.sendMessage(a, event.threadID, (error, info) => {
           global.client.handleReply.push({
             name: this.config.name,
@@ -168,7 +179,7 @@ try{
             lnk: a
           });
         }, event.messageID,
-      )}}
+      )}
 }catch(err){
     return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
 }};
