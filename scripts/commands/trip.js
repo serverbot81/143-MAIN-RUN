@@ -21,7 +21,7 @@ const axios = global.nodemodule["axios"];
 const request = global.nodemodule["request"];
 const fs = global.nodemodule["fs-extra"];
     var link = [
-"https://imgur.com/a/s0zAvRA",
+"https://i.imgur.com/n2d41PL.jpeg",
      ];
      var callback = () => api.sendMessage({body:`</> 🥰𝐁𝐒𝐈🇧🇩𝐌𝐔𝐋𝐓𝐘𝐋𝐏𝐋𝐀𝐘𝐄𝐑✅𝐁𝐃\n\n•This Is Our Official Trip\n\n1️⃣ [12:00] PM 🏖️\n2️⃣ [03:00] PM🏜️\n3️⃣  [10:30] PM🌃\n\n[🤍] GC ID: 4730568810395667
     👑____BSI ADMIN____👑\n
