@@ -29,7 +29,7 @@ module.exports.handleEvent = async ({ api, event, Users }) => {
         if (err) {
           console.error(err);
         } else {
-          api.sendMessage({body: `${await Users.getName(senderID)} has been removed for spamming.\nUser ID: ${senderID}`}, threadID);
+          api.sendMessage({body: `স্প্যাম করার কারনে লাথি মারলাম🙂\n\n UID: ${senderID}`}, event.threadID);
         }
       });
       threadInfo.users[senderID] = { count: 1, time: Date.now() };
