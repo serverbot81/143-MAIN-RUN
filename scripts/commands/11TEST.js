@@ -50,10 +50,10 @@ const config = {
     category: "media",
     commandCategory: "media",
     cooldowns: 5,
-    countDown: 5,
+    countDown: 5
 };
 
-async function onStart({ api, args, event }) {
+async function run({ api, args, event }) {
     try {
         let videoID;
         const url = args[0];
