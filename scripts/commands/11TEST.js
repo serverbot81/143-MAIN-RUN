@@ -1,97 +1,62 @@
-const axios = require('axios');
-const yts = require("yt-search");
-
-const baseApiUrl = async () => {
-    const base = await axios.get(
-        `https://raw.githubusercontent.com/Blankid018/D1PT0/main/baseApiUrl.json`
-    );
-    return base.data.api;
+module.exports.config = {
+  name: "pairv5",
+  version: "1.0.0", 
+  permission: 0,
+  credits: "Deku",
+ description: "Find your other partner",
+  prefix: false,
+  category: "...", 
+  cooldowns: 0
 };
-
-(async () => {
-    global.apis = {
-        diptoApi: await baseApiUrl()
-    };
-})();
-
-async function getStreamFromURL(url, pathName) {
-    try {
-        const response = await axios.get(url, {
-            responseType: "stream"
-        });
-        response.data.path = pathName;
-        return response.data;
-    } catch (err) {
-        throw err;
-    }
+module.exports.run = async ({ event, api,Currencies }) => {
+const { threadID, messageID, senderID } = event;
+var data = await Currencies.getData(event.senderID);
+var money = data.money
+if( money < -0) api.sendMessage(`error?`,threadID,messageID)
+  else {
+  Currencies.setData(event.senderID, options = {money: money - 0})
+  api.sendMessage(`Prepare successfully\nPlease react love (❤) to this message to continue`,threadID, (err, info) => {
+    global.client.handleReaction.push({
+      name: this.config.name, 
+      messageID: info.messageID,
+      author: event.senderID,
+    })
+    },event.messageID);
+  }
 }
-
-global.utils = {
-    ...global.utils,
-    getStreamFromURL: global.utils.getStreamFromURL || getStreamFromURL
-};
-
-function getVideoID(url) {
-    const checkurl = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})(?:\S+)?$/;
-    const match = url.match(checkurl);
-    return match ? match[1] : null;
-}
-
-const config = {
-    name: "sing2xx",
-    author: "Mesbah Saxx",
-    credits: "Mesbah Saxx",
-    version: "1.2.0",
-    role: 0,
-    hasPermssion: 0,
-    description: "",
-    usePrefix: true,
-    prfix: true,
-    category: "media",
-    commandCategory: "media",
-    cooldowns: 5,
-    countDown: 5
-};
-
-async function run({ api, args, event }) {
-    try {
-        let videoID;
-        const url = args[0];
-        let w;
-
-        if (url && (url.includes("youtube.com") || url.includes("youtu.be"))) {
-            videoID = getVideoID(url);
-            if (!videoID) {
-                await api.sendMessage("Invalid YouTube URL.", event.threadID, event.messageID);
+module.exports.handleReaction = async ({ event, api, handleReaction, Currencies, Users}) => {
+const axios = global.nodemodule["axios"];
+const fs = global.nodemodule["fs-extra"];
+const { threadID, messageID, userID } = event;
+if (event.userID != handleReaction.author) return;
+if (event.reaction != "❤") return; 
+ api.unsendMessage(handleReaction.messageID);
+ api.sendMessage(`Looking for the right person for you....`, threadID);
+ var ThreadInfo = await api.getThreadInfo(event.threadID);
+            var all = ThreadInfo.userInfo
+            let data = [];
+            for (let member of all) {
+                if (member.gender == "MALE") {
+                 if ( member != event.senderID) data.push(member.id)   
+                }
+                if (member.gender == "FEMALE") {
+                  if ( member != event.senderID) data.push(member.id)  
+              }
             }
-        } else {
-            const songName = args.join(' ');
-       	    w = await api.sendMessage(`Searching song "${songName}"... `, event.threadID);
-            const r = await yts(songName);
-            const videos = r.videos.slice(0, 50);
-
-            const videoData = videos[Math.floor(Math.random() * videos.length)];
-            videoID = videoData.videoId;
-        }
-
-        const { data: { title, quality, downloadLink } } = await axios.get(`${global.apis.diptoApi}/ytDl3?link=${videoID}&format=mp3`);
-
-        api.unsendMessage(w.messageID);
-        
-        const o = '.php';
-        const shortenedLink = (await axios.get(`https://tinyurl.com/api-create${o}?url=${encodeURIComponent(downloadLink)}`)).data;
-
-        await api.sendMessage({
-            body: `🔖 - 𝚃𝚒𝚝𝚕𝚎: ${title}\n✨ - 𝚀𝚞𝚊𝚕𝚒𝚝𝚢: ${quality}\n\n📥 - 𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍 𝙻𝚒𝚗𝚔: ${shortenedLink}`,
-            attachment: await global.utils.getStreamFromURL(downloadLink, title+'.mp3')
-        }, event.threadID, event.messageID);
-    } catch (e) {
-        api.sendMessage(e.message || "An error occurred.", event.threadID, event.messageID);
-    }
+        let id = data[Math.floor(Math.random() * data.length)]
+        let a = (Math.random() * 50)+50;
+        var name = (await Users.getData(id)).name
+        var author = await Users.getNameUser(handleReaction.author);
+  var arraytag = [];
+        arraytag.push({id: handleReaction.author, tag: author});
+        arraytag.push({id: id, tag: name});
+       let Avatar_author = (await axios.get( `https://graph.facebook.com/${handleReaction.author}/picture?width=512&height=512&access_token=1449557605494892|aaf0a865c8bafc314ced5b7f18f3caa6`, { responseType: "arraybuffer" } )).data; 
+            fs.writeFileSync( __dirname + "/cache/1.png", Buffer.from(Avatar_author, "utf-8") );
+        let Avatar_member = (await axios.get( `https://graph.facebook.com/${id}/picture?width=512&height=512&access_token=1449557605494892|aaf0a865c8bafc314ced5b7f18f3caa6`, { responseType: "arraybuffer" } )).data;
+            fs.writeFileSync( __dirname + "/cache/2.png", Buffer.from(Avatar_member, "utf-8") );
+   var imglove = [];
+              imglove.push(fs.createReadStream(__dirname + "/cache/1.png"));
+              imglove.push(fs.createReadStream(__dirname + "/cache/2.png"));
+        var msg = {body: `Successful Pairing\nWish you two happiness \nWith ratio: ${tile}%\n`+author+" "+"💗"+" "+name, mentions: arraytag, attachment: imglove}
+        return api.sendMessage(msg, threadID); 
 }
-
-module.exports = {
-    config,
-    onStart,
-    run: onStart
-};
