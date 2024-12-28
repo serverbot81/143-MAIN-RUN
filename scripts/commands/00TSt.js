@@ -1,5 +1,5 @@
 module.exports.config = {
-	name: "x2pair",
+	name: "partner",
 	version: "1.0.1",
 	hasPermssion: 0,
 	credits: "𝐏𝐫𝐢𝐲𝐚𝐧𝐬𝐡 𝐑𝐚𝐣𝐩𝐮𝐭",
@@ -62,7 +62,6 @@ async function circle(image) {
 module.exports. run = async function({ api, event, args, Users, Threads, Currencies }) {
   const axios = require("axios");
     const fs = require("fs-extra");
-    api.sendMessage(" Searching Partners",event.threadID, event.messageID);
     const { threadID, messageID, senderID } = event;
     var tl = ['21%', '67%', '19%', '37%', '17%', '96%', '52%', '62%', '76%', '83%', '100%', '99%', "0%", "48%"];
         var tle = tl[Math.floor(Math.random() * tl.length)];
