@@ -18,7 +18,7 @@ module.exports.config = {
 module.exports.languages = {
   en: {
     moduleInfo:
-      "[🤍] Name: %1\n[🤍] Prefix: %2\n\n[🤍] Usage: %3\n[🤍] Category: %4\n[🤍] Cooldowns: %5 second \n[🤍] permission: %6\n\n[🤍] Code By %7.",
+      "[🤍] Name: %1\n[🤍] Prefix: %2\n\n[🤍] Usage: %3\n[🤍] Category: %4\n[🤍] Cooldowns: %5 second \n[🤍] permission: %6\n\n[🤍] Code By %8.",
     helpList:
       `there are %1 commands and %2 categories of ${global.config.BOTNAME} ai.`,
     user: "user",
