@@ -1,45 +1,35 @@
-const axios = require('axios');
-const jimp = require("jimp");
-const fs = require("fs")
-
-module.exports = {
-	config: {
-		name: "arrest",
-		aliases: ["arrest"],
-		version: "1.0",
-		author: "milan-says",
-		coolowns: 5,
-    prefix: true,
-		permission: 0,
-		shortDescription: "arret the rapist",
-		category: "image"
-	},
-
-	run: async function ({ message, args,api , event, user }) {
-        const mention = Object.keys(event.mentions);
-        if (mention.length == 0) return message.reply("please mention someone");
-        else if (mention.length == 1) {
-            const one = event.senderID, two = mention[0];
-            bal(one, two).then(ptth => { message.reply({ body: "You are under arrest", attachment: fs.createReadStream(ptth) }) })
-        } else {
-            const one = mention[1], two = mention[0];
-            bal(one, two).then(ptth => { message.reply({ body: "You are under arrest", attachment: fs.createReadStream(ptth) }) })
-        }
-    }
-
-
+module.exports.config = {
+  name: "all",
+  version: "1.0.0",
+  hasPermission: 0,
+  credits: "Your Name",
+  description: "Mention everyone in the chat",
+  category: "group",
+  prefix: false,
+  usages: "everyone",
+  cooldowns: 5,
+  dependencies: {}
 };
 
-async function bal(one, two) {
+module.exports.run = async ({ api, event }) => {
+  const threadID = event.threadID;
 
-   let avone = await jimp.read(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)
-    avone.circle()
-    let avtwo = await jimp.read(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)
-    avtwo.circle()
-    let pth = "fak.png"
-    let img = await jimp.read("https://i.imgur.com/ep1gG3r.png")
-    img.resize(500, 500).composite(avone.resize(100, 100), 375, 9).composite(avtwo.resize(100, 100), 160, 92);
+  api.getThreadInfo(threadID, (err, info) => {
+    if (err) {
+      api.sendMessage('An error occurred when fetching thread info.', threadID);
+      return; // Stop execution if there is an error
+    }
+    
+    const mentions = info.participantIDs
+      .filter(id => id !== api.getCurrentUserID()) // Exclude the bot itself from mentions
+      .map(id => ({ id, tag: 'all' }));
 
-    await img.writeAsync(pth)
-    return pth
-              }
+    if (mentions.length === 0) {
+      api.sendMessage('No one to mention.', threadID);
+      return; // Stop execution if there are no participants
+    }
+
+    const mentionText = mentions.map(m => `${m.tag}`).join(' ');
+    api.sendMessage({ body: mentionText, mentions }, threadID);
+  });
+};
