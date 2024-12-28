@@ -1,11 +1,11 @@
 module.exports.config = {
-	name: "pairx123",
+	name: "pair",
 	version: "1.0.1",
 	permission: 0,
-	credits: "",
+	credits: "XMAN",
 	description: "",
 	prefix: true,
-    category: "Picture",
+        category: "user",
 	cooldowns: 5,
 	dependencies: {
         "axios": "",
@@ -19,7 +19,7 @@ module.exports.onLoad = async() => {
     const dirMaterial = __dirname + `/cache/canvas/`;
     const path = resolve(__dirname, 'cache/canvas', 'pairing.png');
     if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
-    if (!existsSync(path)) await downloadFile("https://i.postimg.cc/X7R3CLmb/267378493-3075346446127866-4722502659615516429-n.png", path);
+    if (!existsSync(path)) await downloadFile("https://i.postimg.cc/nVKpqMyG/20241228-185915.png", path);
 }
 
 async function makeImage({ one, two }) {
@@ -62,7 +62,7 @@ module.exports. run = async function({ api, event, args, Users, Threads, Currenc
   const axios = require("axios");
     const fs = require("fs-extra");
     const { threadID, messageID, senderID } = event;
-    var tl = ['21%', '67%', '19%', '37%', '17%', '96%', '52%', '62%', '76%', '83%', '100%', '99%', "0%", "48%"];
+    var tl = ['মাত্র 2%', '89%', '77%', '99%', '101%', '00%', '93%', '68%', ' unlimited%', '87%', 'Full 100%', '89%', "khawa Ses Allah Hafeez%", "9999%"];
         var tle = tl[Math.floor(Math.random() * tl.length)];
         let dataa = await api.getUserInfo(event.senderID);
         let namee = await dataa[event.senderID].name
@@ -76,7 +76,7 @@ module.exports. run = async function({ api, event, args, Users, Threads, Currenc
                 arraytag.push({id: id, tag: name});
         
         var sex = await data[id].gender;
-        var gender = sex == 2 ? "Male🧑" : sex == 1 ? "Female👩‍  " : "Tran Duc Bo";
+        var gender = sex == 2 ? "Male" : sex == 1 ? "Female";
 var one = senderID, two = id;
-    return makeImage({ one, two }).then(path => api.sendMessage({ body: `Congratulations ${namee} is paired with ${name} \n ️The odds are: 〘${tle}〙`, mentions: arraytag, attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+    return makeImage({ one, two }).then(path => api.sendMessage({ body: `[🤍] তোমাদের অভিনন্দন💙✨\n\n${namee} \n${name} \n\nভালোবাসার হার: ${tle} 🫢`, mentions: arraytag, attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
 }
