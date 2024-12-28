@@ -1,10 +1,10 @@
 module.exports.config = {
-    name: "kissv3",
+    name: "kiss",
     version: "7.3.1",
     hasPermssion: 0,
     credits: "John Lester",
     description: "kiss",
-    prefix: false,
+    prefix: true,
     category: "img",
     usages: "[@mention]",
     cooldowns: 5,
@@ -67,9 +67,9 @@ module.exports.run = async function ({ event, api, args }) {
     const fs = global.nodemodule["fs-extra"];
     const { threadID, messageID, senderID } = event;
     const mention = Object.keys(event.mentions);
-    if (!mention[0]) return api.sendMessage("Please mention 1 person.", threadID, messageID);
+    if (!mention[0]) return api.sendMessage("[🤍] কাউকে মেনশন তো করো।\n use .kiss @mention", threadID, messageID);
     else {
         const one = senderID, two = mention[0];
-        return makeImage({ one, two }).then(path => api.sendMessage({ body: "", attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+        return makeImage({ one, two }).then(path => api.sendMessage({ body: "ummmmmmaahhh💋🌝", attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
     }
       }
