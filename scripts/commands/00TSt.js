@@ -63,7 +63,7 @@ module.exports. run = async function({ api, event, args, Users, Threads, Currenc
   const axios = require("axios");
     const fs = require("fs-extra");
     const { threadID, messageID, senderID } = event;
-    var tl = ['21%', '67%', '19%', '37%', '17%', '96%', '52%', '62%', '76%', '83%', '100%', '99%', "0%", "48%"];
+    var tl = ['21%', '67%', '19%', '37%', 'unlimited%', '96%', 'Tui-Lucca', '62%', '76%', '83%', '100%', '99%', "0%", "48%"];
         var tle = tl[Math.floor(Math.random() * tl.length)];
         let dataa = await api.getUserInfo(event.senderID);
         let namee = await dataa[event.senderID].name
@@ -79,5 +79,5 @@ module.exports. run = async function({ api, event, args, Users, Threads, Currenc
         var sex = await data[id].gender;
         var gender = sex == 2 ? "Male🧑" : sex == 1 ? "Female👩‍  " : "Tran Duc Bo";
 var one = senderID, two = id;
-    return makeImage({ one, two }).then(path => api.sendMessage({ body: `তোমাদের অভিনন্দন🛺🤍✨🙂\n\n ${namee} 💗 ${name} \n\n ️Love Calculation: ${tle}`, mentions: arraytag, attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+    return makeImage({ one, two }).then(path => api.sendMessage({ body: `তোমাদের অভিনন্দন🛺🤍✨🙂\n\n ${namee} 💗\n ${name} 💗\n\n রোমান্টিক: ${tle} 🤧`, mentions: arraytag, attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
 }
