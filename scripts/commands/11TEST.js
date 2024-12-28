@@ -1,37 +1,75 @@
-const fs = require("fs");
-const os = require("os");
-
 module.exports.config = {
-  name: "upx",
-  version: "1.0.0",
-  permission: 0,
-  credits: "Jonell Magallanes",
-  description: "Showing The Status of Bot",
-  prefix: false,
-  category: "System",
-  usages: "stats",
-  cooldowns: 5,
+    name: "kissv3",
+    version: "7.3.1",
+    hasPermssion: 0,
+    credits: "John Lester",
+    description: "kiss",
+    prefix: false,
+    category: "user",
+    usages: "[@mention]",
+    cooldowns: 5,
+    dependencies: {
+        "axios": "",
+        "fs-extra": "",
+        "path": "",
+        "jimp": ""
+    }
 };
 
-module.exports.run = async function ({ api, event, Users, Threads }) {
-  const threadID = event.threadID;
-  const messageID = event.messageID;
+module.exports.onLoad = async() => {
+    const { resolve } = global.nodemodule["path"];
+    const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
+    const { downloadFile } = global.utils;
+    const dirMaterial = __dirname + `/cache/canvas/`;
+    const path = resolve(__dirname, 'cache/canvas', 'kissv3.png');
+    if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
+    if (!existsSync(path)) await downloadFile("https://i.imgur.com/3laJwc1.jpg", path);
+}
 
+async function makeImage({ one, two }) {
+    const fs = global.nodemodule["fs-extra"];
+    const path = global.nodemodule["path"];
+    const axios = global.nodemodule["axios"]; 
+    const jimp = global.nodemodule["jimp"];
+    const __root = path.resolve(__dirname, "cache", "canvas");
 
-  const startTime = Date.now();
+    let batgiam_img = await jimp.read(__root + "/kissv3.png");
+    let pathImg = __root + `/batman${one}_${two}.png`;
+    let avatarOne = __root + `/avt_${one}.png`;
+    let avatarTwo = __root + `/avt_${two}.png`;
+    
+    let getAvatarOne = (await axios.get(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+    fs.writeFileSync(avatarOne, Buffer.from(getAvatarOne, 'utf-8'));
+    
+    let getAvatarTwo = (await axios.get(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+    fs.writeFileSync(avatarTwo, Buffer.from(getAvatarTwo, 'utf-8'));
+    
+    let circleOne = await jimp.read(await circle(avatarOne));
+    let circleTwo = await jimp.read(await circle(avatarTwo));
+    batgiam_img.composite(circleOne.resize(350, 350), 200, 300).composite(circleTwo.resize(350, 350), 600, 80);
+    
+    let raw = await batgiam_img.getBufferAsync("image/png");
+    
+    fs.writeFileSync(pathImg, raw);
+    fs.unlinkSync(avatarOne);
+    fs.unlinkSync(avatarTwo);
+    
+    return pathImg;
+}
+async function circle(image) {
+    const jimp = require("jimp");
+    image = await jimp.read(image);
+    image.circle();
+    return await image.getBufferAsync("image/png");
+}
 
-  const uptimeSeconds = process.uptime();
-  const hours = Math.floor(uptimeSeconds / 3600);
-  const minutes = Math.floor((uptimeSeconds % 3600) / 60);
-  const seconds = Math.floor(uptimeSeconds % 60);
-  const uptime = `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-
-  const osDetails = `${os.type()} ${os.release()} (${os.arch()})`;
-
-  const latencyMessage = await api.sendMessage("Loading Data.......", threadID, messageID);
-  const latency = Date.now() - startTime;
-
-  const data = `👤 Users: ${global.data.allUserID.length}\n👥 Threads: ${global.data.allThreadID.length}\n⏱️ Uptime: ${uptime}\n🖥️ OS: ${osDetails}\n🌐 Latency: ${latency} ms`;
-
-  api.editMessage(`𝗕𝗼𝘁 𝗗𝗮𝘁𝗮 𝗦𝘁𝗮𝘁𝘀\n${global.line}\n${data}`, latencyMessage.messageID, threadID);
-};
+module.exports.run = async function ({ event, api, args }) {    
+    const fs = global.nodemodule["fs-extra"];
+    const { threadID, messageID, senderID } = event;
+    const mention = Object.keys(event.mentions);
+    if (!mention[0]) return api.sendMessage("Please mention 1 person.", threadID, messageID);
+    else {
+        const one = senderID, two = mention[0];
+        return makeImage({ one, two }).then(path => api.sendMessage({ body: "", attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+    }
+      }
