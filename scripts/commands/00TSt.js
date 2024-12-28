@@ -20,7 +20,7 @@ module.exports.onLoad = async() => {
     const path = resolve(__dirname, 'cache/canvas', 'pairing.png');
     if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
     if (!existsSync(path)) await downloadFile("https://i.postimg.cc/nVKpqMyG/20241228-185915.png", path);
-api.sendMessage(" Searching Partners",event.threadID, event.messageID);
+
 }
 
 async function makeImage({ one, two }) {
@@ -62,6 +62,7 @@ async function circle(image) {
 module.exports. run = async function({ api, event, args, Users, Threads, Currencies }) {
   const axios = require("axios");
     const fs = require("fs-extra");
+    api.sendMessage(" Searching Partners",event.threadID, event.messageID);
     const { threadID, messageID, senderID } = event;
     var tl = ['21%', '67%', '19%', '37%', '17%', '96%', '52%', '62%', '76%', '83%', '100%', '99%', "0%", "48%"];
         var tle = tl[Math.floor(Math.random() * tl.length)];
