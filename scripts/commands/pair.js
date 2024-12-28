@@ -1,62 +1,75 @@
 module.exports.config = {
-  name: "partner",
-  version: "1.0.0", 
-  hasPermssion: 0,
-  credits: "Deku",
- description: "Find your other partner",
-  prefix: true,
-  category: "user", 
-  cooldowns: 5
+    name: "kissv3",
+    version: "7.3.1",
+    hasPermssion: 0,
+    credits: "John Lester",
+    description: "kiss",
+    prefix: false,
+    category: "img",
+    usages: "[@mention]",
+    cooldowns: 5,
+    dependencies: {
+        "axios": "",
+        "fs-extra": "",
+        "path": "",
+        "jimp": ""
+    }
 };
-module.exports.run = async ({ event, api,Currencies }) => {
-const { threadID, messageID, senderID } = event;
-var data = await Currencies.getData(event.senderID);
-var money = data.money
-if( money < -0) api.sendMessage(`error?`,threadID,messageID)
-  else {
-  Currencies.setData(event.senderID, options = {money: money - 0})
-  api.sendMessage(`Prepare successfully\nPlease react love (❤) to this message to continue`,threadID, (err, info) => {
-    global.client.handleReaction.push({
-      name: this.config.name, 
-      messageID: info.messageID,
-      author: event.senderID,
-    })
-    },event.messageID);
-  }
+
+module.exports.onLoad = async() => {
+    const { resolve } = global.nodemodule["path"];
+    const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
+    const { downloadFile } = global.utils;
+    const dirMaterial = __dirname + `/cache/canvas/`;
+    const path = resolve(__dirname, 'cache/canvas', 'kissv3.png');
+    if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
+    if (!existsSync(path)) await downloadFile("https://i.imgur.com/3laJwc1.jpg", path);
 }
-module.exports.handleReaction = async ({ event, api, handleReaction, Currencies, Users}) => {
-const axios = global.nodemodule["axios"];
-const fs = global.nodemodule["fs-extra"];
-const { threadID, messageID, userID } = event;
-if (event.userID != handleReaction.author) return;
-if (event.reaction != "❤") return; 
- api.unsendMessage(handleReaction.messageID);
- api.sendMessage(`Looking for the right person for you....`, threadID);
- var ThreadInfo = await api.getThreadInfo(event.threadID);
-            var all = ThreadInfo.userInfo
-            let data = [];
-            for (let member of all) {
-                if (member.gender == "MALE") {
-                 if ( member != event.senderID) data.push(member.id)   
-                }
-                if (member.gender == "FEMALE") {
-                  if ( member != event.senderID) data.push(member.id)  
-              }
-            }
-        let id = data[Math.floor(Math.random() * data.length)]
-        let a = (Math.random() * 50)+50;
-        var name = (await Users.getData(id)).name
-        var author = await Users.getNameUser(handleReaction.author);
-  var arraytag = [];
-        arraytag.push({id: handleReaction.author, tag: author});
-        arraytag.push({id: id, tag: name});
-       let Avatar_author = (await axios.get( `https://graph.facebook.com/${handleReaction.author}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data; 
-            fs.writeFileSync( __dirname + "/cache/1.png", Buffer.from(Avatar_author, "utf-8") );
-        let Avatar_member = (await axios.get( `https://graph.facebook.com/${id}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data;
-            fs.writeFileSync( __dirname + "/cache/2.png", Buffer.from(Avatar_member, "utf-8") );
-   var imglove = [];
-              imglove.push(fs.createReadStream(__dirname + "/cache/1.png"));
-              imglove.push(fs.createReadStream(__dirname + "/cache/2.png"));
-        var msg = {body: `Successful Pairing\nWish you two happiness \nWith ratio: ${tile}%\n`+author+" "+"💗"+" "+name, mentions: arraytag, attachment: imglove}
-        return api.sendMessage(msg, threadID); 
+
+async function makeImage({ one, two }) {
+    const fs = global.nodemodule["fs-extra"];
+    const path = global.nodemodule["path"];
+    const axios = global.nodemodule["axios"]; 
+    const jimp = global.nodemodule["jimp"];
+    const __root = path.resolve(__dirname, "cache", "canvas");
+
+    let batgiam_img = await jimp.read(__root + "/kissv3.png");
+    let pathImg = __root + `/batman${one}_${two}.png`;
+    let avatarOne = __root + `/avt_${one}.png`;
+    let avatarTwo = __root + `/avt_${two}.png`;
+
+    let getAvatarOne = (await axios.get(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+    fs.writeFileSync(avatarOne, Buffer.from(getAvatarOne, 'utf-8'));
+
+    let getAvatarTwo = (await axios.get(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
+    fs.writeFileSync(avatarTwo, Buffer.from(getAvatarTwo, 'utf-8'));
+
+    let circleOne = await jimp.read(await circle(avatarOne));
+    let circleTwo = await jimp.read(await circle(avatarTwo));
+    batgiam_img.composite(circleOne.resize(350, 350), 200, 300).composite(circleTwo.resize(350, 350), 600, 80);
+
+    let raw = await batgiam_img.getBufferAsync("image/png");
+
+    fs.writeFileSync(pathImg, raw);
+    fs.unlinkSync(avatarOne);
+    fs.unlinkSync(avatarTwo);
+
+    return pathImg;
 }
+async function circle(image) {
+    const jimp = require("jimp");
+    image = await jimp.read(image);
+    image.circle();
+    return await image.getBufferAsync("image/png");
+}
+
+module.exports.run = async function ({ event, api, args }) {    
+    const fs = global.nodemodule["fs-extra"];
+    const { threadID, messageID, senderID } = event;
+    const mention = Object.keys(event.mentions);
+    if (!mention[0]) return api.sendMessage("Please mention 1 person.", threadID, messageID);
+    else {
+        const one = senderID, two = mention[0];
+        return makeImage({ one, two }).then(path => api.sendMessage({ body: "", attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
+    }
+      }
