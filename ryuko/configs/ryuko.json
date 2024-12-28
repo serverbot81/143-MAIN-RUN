@@ -7,7 +7,7 @@
         "updatePresence": false,
         "forceLogin": false,
         "autoMarkDelivery": false,
-        "autoMarkRead": false,
+        "autoMarkRead": true,
         "autoReconnect": true,
         "online": false,
         "emitReady": false,
@@ -16,7 +16,7 @@
     "DESCRIPTION": "artificial intelligence is the future, and the future is here.",
     "allowInbox": false,
     "adminOnly": false,
-    "autoCreateDB": true,
+    "autoCreateDB": false,
     "encryptSt": true,
     "version": "4.0.0",
     "logs": {
