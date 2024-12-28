@@ -45,6 +45,7 @@ module.exports.handleEvent = function ({ api, event, getText }) {
     getText(
       "moduleInfo",
       command.config.name,
+      command.config.prefix,
       command.config.description,
       `${prefix}${command.config.name} ${
         command.config.usages ? command.config.usages : ""
@@ -184,6 +185,7 @@ module.exports.run = async function ({ api, event, args, getText }) {
       getText(
         "moduleInfo",
         command.config.name,
+	command.config.prefix,
         command.config.description,
         `${prefix}${command.config.name} ${
           command.config.usages ? command.config.usages : ""
