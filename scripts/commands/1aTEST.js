@@ -1,82 +1,85 @@
 module.exports.config = {
-	name: "pairxn",
-	version: "1.0.1",
-	permission: 0,
-	credits: "tdunguwu",
-	description: "",
-	prefix: true,
-  category: "Picture",
-	cooldowns: 5,
-	dependencies: {
-        "axios": "",
-        "fs-extra": ""
-    }
-}
-module.exports.onLoad = async() => {
-    const { resolve } = global.nodemodule["path"];
-    const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
-    const { downloadFile } = global.utils;
-    const dirMaterial = __dirname + `/cache/canvas/`;
-    const path = resolve(__dirname, 'cache/canvas', 'pairing.jpg');
-    if (!existsSync(dirMaterial + "canvas")) mkdirSync(dirMaterial, { recursive: true });
-    if (!existsSync(path)) await downloadFile("https://i.pinimg.com/736x/15/fa/9d/15fa9d71cdd07486bb6f728dae2fb264.jpg", path);
-}
-
-async function makeImage({ one, two }) {
-    const fs = global.nodemodule["fs-extra"];
-    const path = global.nodemodule["path"];
-    const axios = global.nodemodule["axios"]; 
-    const jimp = global.nodemodule["jimp"];
-    const __root = path.resolve(__dirname, "cache", "canvas");
-
-    let pairing_img = await jimp.read(__root + "/pairing.jpg");
-    let pathImg = __root + `/pairing_${one}_${two}.png`;
-    let avatarOne = __root + `/avt_${one}.png`;
-    let avatarTwo = __root + `/avt_${two}.png`;
-    
-    let getAvatarOne = (await axios.get(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
-    fs.writeFileSync(avatarOne, Buffer.from(getAvatarOne, 'utf-8'));
-    
-    let getAvatarTwo = (await axios.get(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
-    fs.writeFileSync(avatarTwo, Buffer.from(getAvatarTwo, 'utf-8'));
-    
-    let circleOne = await jimp.read(await circle(avatarOne));
-    let circleTwo = await jimp.read(await circle(avatarTwo));
-    pairing_img.composite(circleOne.resize(85, 85), 355, 100).composite(circleTwo.resize(75, 75), 250, 140);
-    
-    let raw = await pairing_img.getBufferAsync("image/png");
-    
-    fs.writeFileSync(pathImg, raw);
-    fs.unlinkSync(avatarOne);
-    fs.unlinkSync(avatarTwo);
-    
-    return pathImg;
-}
-async function circle(image) {
-    const jimp = require("jimp");
-    image = await jimp.read(image);
-    image.circle();
-    return await image.getBufferAsync("image/png");
-}
-module.exports.run = async function({ api, event, args, Users, Threads, Currencies }) {
+  name: "music2",
+  version: "2.0.4",
+  hasPermssion: 0,
+  credits: "Clark",
+  description: "Play a song",
+  prefix: false,
+  category: "media",
+  usages: "[title]",
+  cooldowns: 10,
+  dependencies: {
+    "fs-extra": "",
+    "request": "",
+    "axios": "",
+    "ytdl-core": "",
+    "yt-search": ""
+  }
+};
+ 
+module.exports.run = async ({ api, event }) => {
   const axios = require("axios");
-    const fs = require("fs-extra");
-    const { threadID, messageID, senderID } = event;
-    var tl = ['21%', '67%', '19%', '37%', '17%', '96%', '52%', '62%', '76%', '83%', '100%', '99%', "0%", "48%"];
-        var tle = tl[Math.floor(Math.random() * tl.length)];
-        let dataa = await api.getUserInfo(event.senderID);
-        let namee = await dataa[event.senderID].name
-        let loz = await api.getThreadInfo(event.threadID);
-        var emoji = loz.participantIDs;
-        var id = emoji[Math.floor(Math.random() * emoji.length)];
-        let data = await api.getUserInfo(id);
-        let name = await data[id].name
-        var arraytag = [];
-                arraytag.push({id: event.senderID, tag: namee});
-                arraytag.push({id: id, tag: name});
-        
-        var sex = await data[id].gender;
-        var gender = sex == 2 ? "Male🧑" : sex == 1 ? "Female👩‍  " : "Tran Duc Bo";
-var one = senderID, two = id;
-    return makeImage({ one, two }).then(path => api.sendMessage({ body: `Congrats ${namee} has been paired with ${name}\nThe Match rate is: ${tle}`, mentions: arraytag, attachment: fs.createReadStream(path) }, threadID, () => fs.unlinkSync(path), messageID));
-                                          }
+  const fs = require("fs-extra");
+  const ytdl = require("ytdl-core");
+  const request = require("request");
+  const yts = require("yt-search");
+ 
+  const input = event.body;
+  const text = input.substring(12);
+  const data = input.split(" ");
+ 
+  if (data.length < 2) {
+    return api.sendMessage("ℹ️ | 𝖯𝗅𝖾𝖺𝗌𝖾 𝗉𝗎𝗍 𝗌𝗈𝗆𝖾 𝗌𝗈𝗇𝗀 𝗍𝗂𝗍𝗅𝖾.", event.threadID);
+  }
+ 
+  data.shift();
+  const song = data.join(" ");
+ 
+  try {
+    api.sendMessage(`🔍 | 𝖨'𝗆 𝖿𝗂𝗇𝖽𝗂𝗇𝗀 "${song}". 𝖯𝗅𝖾𝖺𝗌𝖾 𝗐𝖺𝗂𝗍...`, event.threadID);
+ 
+    const searchResults = await yts(song);
+    if (!searchResults.videos.length) {
+      return api.sendMessage("❎ | 𝖠𝗇 𝖾𝗋𝗋𝗈𝗋 𝗁𝖺𝗌 𝗈𝖼𝖼𝗎𝗋𝗋𝖾𝖽.\n\n𝗘𝗿𝗿𝗼𝗿: 𝗂𝗇𝗏𝖺𝗅𝗂𝖽 𝗋𝖾𝗊𝗎𝖾𝗌𝗍.", event.threadID, event.messageID);
+    }
+ 
+    const video = searchResults.videos[0];
+    const videoUrl = video.url;
+ 
+    const stream = ytdl(videoUrl, { filter: "audioonly" });
+ 
+    const fileName = `${event.senderID}.mp3`;
+    const filePath = __dirname + `/cache/${fileName}`;
+ 
+    stream.pipe(fs.createWriteStream(filePath));
+ 
+    stream.on('response', () => {
+      console.info('[DOWNLOADER]', 'Starting download now!');
+    });
+ 
+    stream.on('info', (info) => {
+      console.info('[DOWNLOADER]', `Downloading ${info.videoDetails.title} by ${info.videoDetails.author.name}`);
+    });
+ 
+    stream.on('end', () => {
+      console.info('[DOWNLOADER] Downloaded');
+ 
+      if (fs.statSync(filePath).size > 26214400) {
+        fs.unlinkSync(filePath);
+        return api.sendMessage('❎ | 𝖳𝗁𝖾 𝖿𝗂𝗅𝖾 𝖼𝗈𝗎𝗅𝖽 𝗇𝗈𝗍 𝖻𝖾 𝗌𝖾𝗇𝗍 𝖻𝖾𝖼𝖺𝗎𝗌𝖾 𝗂𝗍 𝗂𝗌 𝗅𝖺𝗋𝗀𝖾𝗋 𝗍𝗁𝖺𝗇 𝟤𝟧𝖬𝖡.', event.threadID);
+      }
+ 
+      const message = {
+        body: `✅ | 𝖧𝖾𝗋𝖾'𝗌 𝗒𝗈𝗎𝗋 𝗆𝗎𝗌𝗂𝖼, 𝖾𝗇𝗃𝗈𝗒!\n━━━━━━━━━━━━━━━━━━━\n💠 𝗧𝗶𝘁𝗹𝗲: ${video.title}\n💠 𝗔𝗿𝘁𝗶𝘀𝘁: ${video.author.name}\n━━━━━━━━━━━━━━━━━━━`,
+        attachment: fs.createReadStream(filePath)
+      };
+ 
+      api.sendMessage(message, event.threadID, () => {
+        fs.unlinkSync(filePath);
+      });
+    });
+  } catch (error) {
+    console.error('[ERROR]', error);
+    api.sendMessage('❎ | 𝖠𝗇 𝖾𝗋𝗋𝗈𝗋 𝗈𝖼𝖼𝗎𝗋𝗋𝖾𝖽 𝗐𝗁𝗂𝗅𝖾 𝗉𝗋𝗈𝖼𝖾𝗌𝗌𝗂𝗇𝗀 𝗍𝗁𝖾 𝖼𝗈𝗆𝗆𝖺𝗇𝖽.', event.threadID);
+  }
+};
