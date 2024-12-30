@@ -46,13 +46,18 @@ module.exports = {
           `[🤍] 𝘛𝘰𝘵𝘢𝘭 𝘝𝘪𝘥𝘦𝘰𝘴: ${response.data.videoCount}\n` +
           `[🤍] 𝘜𝘐𝘋: ${response.data.secUid}\n` +
           `\n[🤍] 𝘚𝘵𝘢𝘺 𝘞𝘪𝘵𝘩 𝘛𝘢𝘯𝘷𝘪𝘳 𝘉𝘰𝘵 🥀`,
-      };
-
-      return api.sendMessage(userInfoMessage, event.threadID);
-
-    } catch (error) {
-      console.error(error);
-      return api.sendMessage(`error: ${error.message} `, event.threadID);
-    }
+         attachment: fs.createReadStream(filePath),
+      }, event.threadID, () => {
+        fs.unlinkSync(filePath);
+      }, event.messageID);
+    });
+     api.unsendMessage(lods.messageID);
+    writer.on('error', (err) => {
+      console.error("Failed to write file:", err);
+      api.sendMessage(error.message, event.threadID, event.messageID);
+    });
+  } catch (error) {
+    console.error(error.message);
+    api.sendMessage(error.message, event.threadID, event.messageID);
   }
 };
