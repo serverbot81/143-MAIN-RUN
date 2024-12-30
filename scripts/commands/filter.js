@@ -25,11 +25,11 @@ module.exports.run = async function ({ api, event }) {
     const isBotAdmin = adminIDs.map(a => a.id).includes(api.getCurrentUserID());
 
     if (filteredUsers.length === 0) {
-        api.sendMessage("🔴 | 𝖸𝗈𝗎𝗋 𝖦𝗋𝗈𝗎𝗉 𝖣𝗈𝖾𝗌 𝖭𝗈𝗍 𝖤𝗑𝗂𝗌𝗍.", event.threadID);
+        api.sendMessage("❎ | No more death account.", event.threadID);
     } else {
-        api.sendMessage(`ℹ️ | 𝖨𝗇𝗂𝗍𝗂𝖺𝗍𝗂𝗇𝗀 𝖥𝗂𝗅𝗍𝖾𝗋𝗂𝗇𝗀 𝖥𝖺𝖼𝖾𝖻𝗈𝗈𝗄 𝖬𝖾𝗆𝖻𝖾𝗋𝗌 𝖨𝗇 𝖳𝗁𝗂𝗌 𝖦𝗋𝗈𝗎𝗉, 𝖨𝗇𝗂𝗍𝗂𝖺𝗍𝗂𝗇𝗀 ${filteredUsers.length} 𝖥𝖺𝖼𝖾𝖻𝗈𝗈𝗄 𝖴𝗌𝖾𝗋𝗌.`, event.threadID, () => {
+        api.sendMessage(`♻️| 𝖥𝗂𝗅𝗍𝖾𝗋𝗂𝗇𝗀 𝖥𝖺𝖼𝖾𝖻𝗈𝗈𝗄 𝖬𝖾𝗆𝖻𝖾𝗋𝗌 𝖨𝗇 𝖳𝗁𝗂𝗌 𝖦𝗋𝗈𝗎𝗉, ${filteredUsers.length} 𝖥𝖺𝖼𝖾𝖻𝗈𝗈𝗄 𝖴𝗌𝖾𝗋𝗌.`, event.threadID, () => {
             if (isBotAdmin) {
-                api.sendMessage("⏳ | 𝖥𝗂𝗅𝗍𝖾𝗋 𝗂𝗌 𝗌𝗍𝖺𝗋𝗍𝗂𝗇𝗀 𝗍𝗈 𝗉𝗋𝗈𝖼𝖾𝖾𝖽, 𝖯𝗅𝖾𝖺𝗌𝖾 𝗐𝖺𝗂𝗍...\n\n", event.threadID, async () => {
+                api.sendMessage("🔰 | 𝖥𝗂𝗅𝗍𝖾𝗋 𝗂𝗌 𝗌𝗍𝖺𝗋𝗍𝗂𝗇𝗀 𝗍𝗈 𝗉𝗋𝗈𝖼𝖾𝖾𝖽, 𝖯𝗅𝖾𝖺𝗌𝖾 𝗐𝖺𝗂𝗍...\n\n", event.threadID, async () => {
                     for (const userID of filteredUsers) {
                         try {
                             await new Promise(resolve => setTimeout(resolve, 1000));
@@ -40,9 +40,9 @@ module.exports.run = async function ({ api, event }) {
                         }
                     }
 
-                    api.sendMessage(`🟢 | 𝖲𝗎𝖼𝖼𝖾𝗌𝗌𝖿𝗎𝗅𝗅𝗒 𝗂𝗇𝗂𝗍𝗂𝖺𝗍𝖾 𝗍𝗈 𝖿𝗂𝗅𝗍𝖾𝗋 𝗈𝗇 ${successCount} 𝗉𝖾𝗈𝗉𝗅𝖾.`, event.threadID, () => {
+                    api.sendMessage(`🟢 | 𝖲𝗎𝖼𝖼𝖾𝗌𝗌𝖿𝗎𝗅𝗅𝗒 𝖿𝗂𝗅𝗍𝖾𝗋 𝗈𝗇 ${successCount} 𝗉𝖾𝗈𝗉𝗅𝖾.`, event.threadID, () => {
                         if (failCount !== 0) {
-                            api.sendMessage(`🔴 | 𝖥𝖺𝗂𝗅𝖾𝖽 𝗍𝗈 𝗂𝗇𝗂𝗍𝗂𝖺𝗍𝖾 𝗍𝗈 𝖿𝗂𝗅𝗍𝖾𝗋 ${failCount} 𝗉𝖾𝗈𝗉𝗅𝖾.`, event.threadID);
+                            api.sendMessage(`🔴 | 𝖥𝖺𝗂𝗅𝖾𝖽 𝖿𝗂𝗅𝗍𝖾𝗋 ${failCount} 𝗉𝖾𝗈𝗉𝗅𝖾.`, event.threadID);
                         }
                     });
                 });
