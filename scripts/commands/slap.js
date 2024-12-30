@@ -4,7 +4,7 @@ module.exports.config = {
   permission: 0,
   credits: "Tanvir143",
   prefix: true,
-  description: "lag thappor",
+  description: "laga thappor",
   category: "user",
   usages: "slap",
   cooldowns: 2,
