@@ -2,12 +2,12 @@ module.exports.config = {
   name: "slap",
   version: "1.0.0",
   permission: 0,
-  credits: "𝙈𝙧𝙏𝙤𝙢𝙓𝙭𝙓",
+  credits: "Tanvir143",
   prefix: true,
-  description: "Slap the friend tag",
+  description: "lag thappor",
   category: "user",
-  usages: "slap [Tag someone you want to slap]",
-  cooldowns: 5,
+  usages: "slap",
+  cooldowns: 2,
 };
 
 
@@ -16,7 +16,7 @@ module.exports.run = async ({ api, event, args }) => {
 	const request = require('request');
 	const fs = require("fs");
     var out = (msg) => api.sendMessage(msg, event.threadID, event.messageID);
-  if (!args.join("")) return out("Please tag someone");
+  if (!args.join("")) return out("কারে থাপ্পর দিবা ট্যাগ করো😂\n\n [🤍] .slap @mention");
   else
   return axios.get('https://api.waifu.pics/sfw/slap').then(res => {
         let getURL = res.data.url;
@@ -25,9 +25,9 @@ module.exports.run = async ({ api, event, args }) => {
                   let tag = event.mentions[mention].replace("@", "");    
         
  let callback = function () {
-            api.setMessageReaction("✅", event.messageID, (err) => {}, true);
+            api.setMessageReaction("🤡", event.messageID, (err) => {}, true);
         api.sendMessage({
-						        body: "Slapped! " + tag + "\n\n*sorry, i thought there's mosquito*",
+						        body: "👋 " + tag + "😾👂👋\n\n_থাপ্পর দিয়ে কান গরম করে ফেলবো😒",
                                           mentions: [{
           tag: tag,
           id: Object.keys(event.mentions)[0]
@@ -39,7 +39,7 @@ module.exports.run = async ({ api, event, args }) => {
         request(getURL).pipe(fs.createWriteStream(__dirname + `/cache/slap.${ext}`)).on("close", callback);
 			})
     .catch(err => {
-                     api.sendMessage("Failed to generate gif, be sure that you've tag someone!", event.threadID, event.messageID);
+                     api.sendMessage("error", event.threadID, event.messageID);
     api.setMessageReaction("☹️", event.messageID, (err) => {}, true);
                   })     
 }
