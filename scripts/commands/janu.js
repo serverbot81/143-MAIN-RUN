@@ -26,7 +26,7 @@ module.exports.run = async function ({ api, event, args, Users }) {
     const uid = event.senderID;
 
     if (!args[0]) {
-      const ran = ["use: janu Hello", "তলে তলে টেম্পো চালাও, আর আমাকে এসে জানু বলো, বাহ", "তোমার অইখানে উমম্মাহ😘😷", "type janu Hi"];
+      const ran = ["😘😩"];
       const r = ran[Math.floor(Math.random() * ran.length)];
       return api.sendMessage(r, event.threadID, event.messageID);
     }
@@ -159,7 +159,7 @@ try{
     if(body.startsWith("baby") || body.startsWith("bby") || body.startsWith("janu")){
         const arr = body.replace(/^\S+\s*/, "")
       if(!arr) {
-                                     await api.sendMessage("তলে তলে টেম্পো চালাও, আর আমাকে এসে জানু বেবি বলো, বাহ😾", "তোমার অইখানে উমম্মাহ😘😷", "আসো টেম্পো চালাই🛺", "চলো যাই লিটনের প্লাটে😩🙈🙂", "আমি বট তুমি হট💋🥵", event.threadID, (error, info) => {
+                                     await api.sendMessage("হুম বলো গো😘😌...", event.threadID, (error, info) => {
           global.client.handleReply.push({
             name: this.config.name,
             type: "reply",
