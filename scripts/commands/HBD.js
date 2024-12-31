@@ -1,18 +1,17 @@
 module.exports.config = {
-  'name': "birthday",
-  'version': "1.0.0",
-  'prefix': true,
-  'hasPermssion': 0x0,
-  'credits': "khốn kiếp tên trộm",
-  'description': "prank friends",
-  'category': "Group",
-  'usages': "@tag",
-  'dependencies': {
-    'axios': '',
-    'fs-extra': ''
-  },
-  'cooldowns': 0x0
-};
+	name: "hbdx",
+	version: "1.0.1",
+	hasPermssion: 0,
+	credits: "𝐏𝐫𝐢𝐲𝐚𝐧𝐬𝐡 𝐑𝐚𝐣𝐩𝐮𝐭",
+	description: "",
+	category: "Picture",
+  prefix: true,
+	cooldowns: 5,
+	dependencies: {
+        "axios": "",
+        "fs-extra": ""
+    }
+}
 module.exports.wrapText = (_0x29978c, _0x4ad966, _0x4d5f11) => {
   return new Promise(_0x7f5072 => {
     if (_0x29978c.measureText(_0x4ad966).width < _0x4d5f11) {
