@@ -4,8 +4,8 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "Yan Maglinte",
 	description: "Add user to group by id",
-  usePrefix: true,
-	commandCategory: "group",
+        prefix: true,
+	category: "group",
 	usages: "[args]",
 	cooldowns: 5
 };
